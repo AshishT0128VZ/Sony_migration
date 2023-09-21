@@ -63,28 +63,6 @@ class AWSCommonFunctions:
         except Exception as error:
             raise error
 
-    def update_dynamo_values_from_key(self, table, col_key, key, col_value, values_list):
-        """
-        The function takes 5 parameters. The table, the column name for the key, the key, the column name for the value
-        and the values list to update in the dynamo table values
-        It updates the dynamo table or raises an error if something goes wrong
-        """
-        dynamodb = boto3.resource('dynamodb')
-        try:
-            table = dynamodb.Table(table)
-            table.update_item(
-                Key={
-                    col_key: key
-                },
-                UpdateExpression='set ' + col_value + ' = list_append(if_not_exists(' + col_value + ', :empty_list), :val1)',
-                ExpressionAttributeValues={
-                    ':val1': values_list,
-                    ':empty_list': []
-                }
-            )
-        except Exception as error:
-            raise error
-
     def copy_parts_and_clean(self, sourceS3path, targetS3path, copyWithKMSEncryption, partition=None):
     	"""
     	This function takes 4 parameters. The source S3 bucket and prefix, the target S3 bucket and prefix,
