@@ -6,7 +6,6 @@ from urllib.parse import urlparse
 
 import boto3
 import requests
-from aws_requests_auth.aws_auth import AWSRequestsAuth
 from pyspark.sql import DataFrame
 from pyspark.sql import Row
 from pyspark.sql.functions import *
